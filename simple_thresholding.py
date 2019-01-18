@@ -15,11 +15,31 @@ cv2.imshow("Image", image)
 with a s = 5 radius. Applying Gaussian blurring helps remove some of the high frequency edges in the image that
 we are not concerned with"""
 
+"""we compute the thresholded image using the cv2.threshold function. This
+method requires four arguments. The first is the grayscale
+image that we wish to threshold. We supply our blurred
+image here.
+
+Then, we manually supply our T threshold value. We
+use a value of T = 155.
+
+Our third argument is our maximum value applied during thresholding. Any pixel intensity p that is greater than
+T, is set to this value. In our example, any pixel value that
+is greater than 155 is set to 255. Any value that is less than
+155 is set to zero
+
+Finally, we must provide a thresholding method. We use
+the cv2.THRESH_BINARY method, which indicates that pixel
+values p greater than T are set to the maximum value (the third argument)."""
+
 (T, thresh) = cv2.threshold(blurred, 155, 255, cv2.THRESH_BINARY)
 cv2.imshow("Threshold Binary", thresh)
 
-(T, threshInv) = cv2.threshold(blurred, 155, 255, cv2.THRESH_BINARY_INV)
+"""The cv2.threshold function returns two values. The firstis T, 
+the value we manually specified for thresholding. The second is our actual thresholded image
+"""
 
+(T, threshInv) = cv2.threshold(blurred, 155, 255, cv2.THRESH_BINARY_INV)
 cv2.imshow("Threshold Binary Inverse", threshInv)
 
 cv2.imshow("Coins", cv2.bitwise_and(image, image, mask =threshInv))
